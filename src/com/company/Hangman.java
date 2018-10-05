@@ -146,6 +146,14 @@ public class Hangman {
             //if user has completed the word set bWinner to true
             //this code is not yet written.  I ran out of time.
 
+            String testString = new String(cHangGuessArray);
+            if(testString.equalsIgnoreCase(sWordSelection))
+            {
+                bWinner = true;
+                System.out.println("You Are a WINNER!  Hurrah!")
+
+            }
+
 
         }while((iIncorrectGuessCount < 6)&&( bWinner == false));
 
