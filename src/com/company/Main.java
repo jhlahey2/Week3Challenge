@@ -1,6 +1,8 @@
 package com.company;
 import java.util.Scanner;
 /**
+ *@Author Jack Lahey
+ *
  * Assignment
  *
  * Part 1
@@ -16,73 +18,36 @@ import java.util.Scanner;
 
 public class Main
 {
+    public static void main(String[] args) {
+        String sInput = "";
+        Scanner keyboard = new Scanner(System.in);
 
-//    public static final int FIVE = 5;
-//    public static final int SEVEN = 7;
+        // let user choose whether to run the required or optional portions of Week Three Challenge, or quit
+        do {
+            System.out.println("Please enter \"R\" Required Version,  \"O\" Optional Version,  \"H\" Hangman, or \"Q\" Quit ");
 
-    public static void main(String[] args)
-    {
-//        RequiredVersion rv = new RequiredVersion();
-//        rv.play();
-        RequiredVersion rv = new RequiredVersion();
-        rv.play();
-//        OptionalVersion ov = new OptionalVersion();
-//        ov.play();
-    }
+            sInput = keyboard.nextLine();
 
-//    //This is the main method
-//    public static void main(String[] args)
-//    {
-//        int inputNumber = 0;
-//        String sContinue = "";
-//        boolean bContinue = true;
-//        Scanner keyboard = new Scanner(System.in);
-//
-//        while(bContinue)
-//        {
-//            System.out.println("Enter a number");
-//            inputNumber = keyboard.nextInt();
-//            keyboard.nextLine();
-//
-//            //find out if 5 or 7 are divisors of the number
-//            while(inputNumber > 0)
-//            {
-//                if((inputNumber % FIVE) == 0)
-//                {
-//                    System.out.println(inputNumber);
-//                }
-//                if((inputNumber % SEVEN) == 0)
-//                {
-//                    System.out.println(inputNumber);
-//                }
-//
-//                inputNumber--;
-//            }
-//
-//            //This is the loop to ask if the user wants to play again
-//            System.out.println("Would you like to enter another number, Yes or No?");
-//            sContinue = keyboard.nextLine();
-//            if( sContinue.equalsIgnoreCase("yes"))
-//            {
-//                bContinue = true;
-//            }
-//            else if( sContinue.equalsIgnoreCase("no"))
-//            {
-//                bContinue = false;
-//            }
-//            else
-//                while( !sContinue.equalsIgnoreCase("yes") && !sContinue.equalsIgnoreCase("no"))
-//                {
-//                    System.out.println("Please enter either \"Yes\" or \"No\"");
-//                    sContinue = keyboard.nextLine();
-//                    bContinue = true;
-//                }
-//
-//        }//end while{bContinue)
-//
-//        //end of game message
-//        System.out.println("\nThank you for playing!");
-//
-//    }//end public static void main(String[] args)
+        }while (!sInput.equalsIgnoreCase("R") && !sInput.equalsIgnoreCase("O")
+                && !sInput.equalsIgnoreCase("H") && !sInput.equalsIgnoreCase("Q"));
 
-}// end public class Main
+        if (sInput.equalsIgnoreCase("R")) {
+            System.out.println("\nYou have selected the Required Versiaon of Week Three Challenge.");
+            RequiredVersion rv = new RequiredVersion();
+            rv.play();
+        } else if (sInput.equalsIgnoreCase("O")) {
+            System.out.println("\nYou have selected the Optional Versiaon of Week Three Challenge.");
+            OptionalVersion ov = new OptionalVersion();
+            ov.play();
+        } else if (sInput.equalsIgnoreCase("H")) {
+            System.out.println("\nYou have selected Hangman.");
+            Hangman hang = new Hangman();
+            hang.play();
+        } else if (sInput.equalsIgnoreCase("Q")) {
+            System.out.println("\nYou have selected Quit.  Goodbye.");
+        }
+
+    }//end public static void main(String[] args)
+
+
+    }// end public class Main
