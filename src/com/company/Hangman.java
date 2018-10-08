@@ -53,11 +53,12 @@ public class Hangman {
         String sWordGuess = "";
         int iWordSelection = 0;
         int iWordSize = 0;
-        char cHangGuess;
+        char chHangGuess;
         char [] cHangGuessArray = {};
         int iIncorrectGuessCount =0;
         boolean bWinner = false;
 
+        //add words to list
         wordList.add("Tree");
         wordList.add("Rain");
         wordList.add("Bear");
@@ -74,36 +75,16 @@ public class Hangman {
         // Generate random integers in range 0 to size of the ArrayList for word selection
         iWordSelection = random.nextInt(wordList.size());
 
-        //get the random word
+        //select random word
         sWordSelection = wordList.get(iWordSelection);
 
+        //allocate an array to hold the guesses
         iWordSize = sWordSelection.length();
         cHangGuessArray = new char [iWordSize];
 
         //display values for testing
-//        System.out.println("The word is " + sWordSelection );
-//        System.out.println("The number of characters is " + iWordSize);
-//        for(int i = 0 ; i < iWordSize ; i++)
-//        {
-//            System.out.println(sWordSelection.charAt(i));
-//        }
-//        for(int i = 0 ; i < 50 ; i++ )
-//        {
-//            System.out.println(random.nextInt(wordList.size()));
-//        }
-//        iWordSelection = random.nextInt(wordlist.size());
-//
-//
-//        iMaximum = wordlist.size();
-//
-//        iWordSelection = random.nextInt(iMaximum - iMinimum + 1) + iMinimum;
-//
-//        System.out.println(wordList.get(0));
-//
-//        for (String s : wordList) {
-//               System.out.println(s);
-//        }
-
+        System.out.println("The word is " + sWordSelection );
+        System.out.println("The number of characters is " + iWordSize);
 
         for (int i = 0 ; i < iWordSize ; i ++)
         {
@@ -118,50 +99,64 @@ public class Hangman {
         System.out.print("\n\n");
 
         do {
-           System.out.print("Enter your guess: ");
-            cHangGuess = keyboard.next().charAt(0);
+            //get input from user and change it to lower case
+            System.out.println("\nEnter your guess: ");
+            chHangGuess = Character.toLowerCase(keyboard.next().charAt(0));
             keyboard.nextLine();
+
+            boolean bGoodGuess = false;
 
             //test to see if the guessed letter is in the word
             for (int j = 0; j < iWordSize; j++)
             {
-                if( cHangGuess == sWordSelection.charAt(j))
+                //if the character is in the selected word,
+                if( chHangGuess == Character.toLowerCase(sWordSelection.charAt(j) ))
                 {
-                    //if the character is in the selected word, set the character in the array to match
-                    cHangGuessArray[j] = cHangGuess;
-                }
-                else {
-                    iIncorrectGuessCount++;
-                    System.out.println("You have guessed incorrectly " + iIncorrectGuessCount + "/6 times.");
-                    System.out.print("Your guess so far ");
-                    for (int k = 0; k < iWordSize; k++) {
-                        System.out.print(cHangGuessArray[j] + " ");
-                    }
-                    System.out.print("\n");
-                }//end if( cHangGuess = sWordSelection.charAt(j)
+                    //set character in the array to match
+                    cHangGuessArray[j] = chHangGuess;
+                    //set boolean to true
+                    bGoodGuess = true;
+
+                }//end if( chHangGuess = sWordSelection.charAt(j)
 
             }//end for (int j = 0; j < iWordSize; j++)
 
-            //test to see if user has completed the word.
-            //if user has completed the word set bWinner to true
-            //this code is not yet written.  I ran out of time.
-
-            String testString = new String(cHangGuessArray);
-            if(testString.equalsIgnoreCase(sWordSelection))
+            //display guesses so far to user
+            System.out.print("Your guess so far: ");
+            for(int i = 0 ; i < iWordSize ; i++)
             {
-                bWinner = true;
-                System.out.println("You Are a WINNER!  Hurrah!")
-
+                System.out.print(cHangGuessArray[i] + " ");
             }
+            System.out.print("\n");
+
+            //if it is a good guess, test to see if the user has completed the word
+            if(bGoodGuess) {
+
+                System.out.println("Good Guess!");
+                String testString = new String(cHangGuessArray);
+
+                //test to see if the word is complete
+                if(testString.equalsIgnoreCase(sWordSelection))
+                {
+                    bWinner = true;
+                    System.out.println("You Are a WINNER!  Hurrah!");
+                }
+            }
+            else {
+
+                iIncorrectGuessCount++;
+                System.out.println("You have guessed incorrectly " + iIncorrectGuessCount + "/6 times.");
+
+                if(!(iIncorrectGuessCount < 6)){
+                    System.out.println("Sorry, you lose!");
+                }
+            }//end if(bGoodGuess)
 
 
-        }while((iIncorrectGuessCount < 6)&&( bWinner == false));
-
+        }while((iIncorrectGuessCount < 6) && (bWinner == false));
 
         System.out.println("\nThank you for playing!");
 
+    }//end public void play()
 
-
-    }
-
-}
+}//end public class Hangman
